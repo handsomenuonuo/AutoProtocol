@@ -468,8 +468,7 @@ class AutoEnProtocolProcessor : AbstractProcessor() {
                         .addStatement("val bitCount = ${log2((protocolPropertyBean.mask +1).toDouble()).toInt()}")
                         .addStatement("val afterShr = src shr ${protocolPropertyBean.shr}")
                         .addStatement("val start = afterShr shr bitCount")
-                        .addStatement("val invAfterShr = afterShr.inv()")
-                        .addStatement("val end = invAfterShr and src")
+                        .addStatement("val end = afterShr shl ${protocolPropertyBean.shr} xor src")
 
                     when(propertyElement.asType().kind){
                         TypeKind.BOOLEAN->{
